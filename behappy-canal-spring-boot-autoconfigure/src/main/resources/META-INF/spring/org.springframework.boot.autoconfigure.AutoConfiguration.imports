@@ -1,0 +1,5 @@
+org.xiaowu.behappy.canal.client.spring.boot.autoconfigure.SimpleClientAutoConfiguration
+org.xiaowu.behappy.canal.client.spring.boot.autoconfigure.ClusterClientAutoConfiguration
+org.xiaowu.behappy.canal.client.spring.boot.autoconfigure.KafkaClientAutoConfiguration
+org.xiaowu.behappy.canal.client.spring.boot.autoconfigure.ZookeeperClientAutoConfiguration
+K
