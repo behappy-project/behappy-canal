@@ -15,7 +15,7 @@ public class SyncFlatMessageHandlerImpl extends AbstractFlatMessageHandler {
 
 
 
-    public SyncFlatMessageHandlerImpl(List<? extends EntryHandler<?>> entryHandlers, RowDataHandler<List<Map<String, String>>> rowDataHandler) {
+    public SyncFlatMessageHandlerImpl(List<? extends EntryHandler> entryHandlers, RowDataHandler<List<Map<String, String>>> rowDataHandler) {
         super(entryHandlers, rowDataHandler);
     }
 

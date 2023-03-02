@@ -18,6 +18,11 @@
             <groupId>com.alibaba.otter</groupId>
             <artifactId>canal.protocol</artifactId>
         </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

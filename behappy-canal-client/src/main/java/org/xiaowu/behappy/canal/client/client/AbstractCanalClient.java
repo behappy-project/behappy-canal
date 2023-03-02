@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @author xiaowu
  */
 @Slf4j
-public abstract class AbstractCanalClient<T> implements CanalClient<T> {
+public abstract class AbstractCanalClient implements CanalClient {
     protected volatile boolean flag;
 
     private Thread workThread;
@@ -27,7 +27,7 @@ public abstract class AbstractCanalClient<T> implements CanalClient<T> {
 
     @Getter
     @Setter
-    private MessageHandler<T> messageHandler;
+    private MessageHandler messageHandler;
 
     @Getter
     @Setter
@@ -60,10 +60,13 @@ public abstract class AbstractCanalClient<T> implements CanalClient<T> {
                 connector.subscribe(filter);
                 while (flag) {
                     Message message = connector.getWithoutAck(batchSize, timeout, unit);
+                    if (message.getId() == -1){
+                        continue;
+                    }
                     log.info("获取消息 {}", message);
                     long batchId = message.getId();
                     if (message.getId() != -1 && message.getEntries().size() != 0) {
-                        messageHandler.handleMessage((T) message);
+                        messageHandler.handleMessage(message);
                     }
                     connector.ack(batchId);
                 }

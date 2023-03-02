@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author xiaowu
  */
-@Configuration
+@Configuration(enforceUniqueMethods = false)
 @EnableConfigurationProperties(CanalKafkaProperties.class)
 @ConditionalOnBean(value = {EntryHandler.class})
 @ConditionalOnProperty(value = CanalProperties.CANAL_MODE, havingValue = "kafka")
@@ -48,20 +48,20 @@ public class KafkaClientAutoConfiguration {
 
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "true", matchIfMissing = true)
-    public MessageHandler<FlatMessage> messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler,
-                                                      List<EntryHandler<FlatMessage>> entryHandlers,
+    public MessageHandler messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler,
+                                                      List<EntryHandler> entryHandlers,
                                                       ExecutorService executorService) {
         return new AsyncFlatMessageHandlerImpl(entryHandlers, rowDataHandler, executorService);
     }
 
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "false")
-    public MessageHandler<FlatMessage> messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler, List<EntryHandler<FlatMessage>> entryHandlers) {
+    public MessageHandler messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler, List<EntryHandler> entryHandlers) {
         return new SyncFlatMessageHandlerImpl(entryHandlers, rowDataHandler);
     }
 
     @Bean(initMethod = "start", destroyMethod = "stop")
-    public KafkaCanalClient kafkaCanalClient(MessageHandler<FlatMessage> messageHandler) {
+    public KafkaCanalClient kafkaCanalClient(MessageHandler messageHandler) {
         String server = canalKafkaProperties.getServer();
         String topic = canalKafkaProperties.getDestination();
         Integer partition = canalKafkaProperties.getPartition();

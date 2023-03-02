@@ -1,3 +1,5 @@
+create database if not exists test;
+use test;
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',

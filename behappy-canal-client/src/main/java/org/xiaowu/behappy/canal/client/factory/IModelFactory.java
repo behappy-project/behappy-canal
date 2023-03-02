@@ -8,9 +8,9 @@ import java.util.Set;
  * @author xiaowu
  */
 public interface IModelFactory<T> {
-    <R> R newInstance(EntryHandler<?> entryHandler, T t) throws Exception;
+    <R> R newInstance(EntryHandler entryHandler, T t) throws Exception;
 
-    default <R> R newInstance(EntryHandler<?> entryHandler, T t, Set<String> updateColumn) throws Exception {
+    default <R> R newInstance(EntryHandler entryHandler, T t, Set<String> updateColumn) throws Exception {
         return null;
     }
 }

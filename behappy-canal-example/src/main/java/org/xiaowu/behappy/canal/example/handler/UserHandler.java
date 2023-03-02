@@ -2,16 +2,12 @@ package org.xiaowu.behappy.canal.example.handler;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.xiaowu.behappy.canal.client.annotation.CanalTable;
 import org.xiaowu.behappy.canal.client.handler.EntryHandler;
 import org.xiaowu.behappy.canal.example.model.User;
 
 
 @Component
-@CanalTable(value = "t_user")
 @Slf4j
 public class UserHandler implements EntryHandler<User> {
 

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class SyncMessageHandlerImpl extends AbstractMessageHandler {
 
-    public SyncMessageHandlerImpl(List<? extends EntryHandler<?>> entryHandlers, RowDataHandler<CanalEntry.RowData> rowDataHandler) {
+    public SyncMessageHandlerImpl(List<? extends EntryHandler> entryHandlers, RowDataHandler<CanalEntry.RowData> rowDataHandler) {
         super(entryHandlers, rowDataHandler);
     }
 

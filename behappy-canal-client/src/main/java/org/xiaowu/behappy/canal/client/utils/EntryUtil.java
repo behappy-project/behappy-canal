@@ -1,9 +1,10 @@
 package org.xiaowu.behappy.canal.client.utils;
 
 import com.google.common.base.CaseFormat;
+import jakarta.persistence.Column;
+import jakarta.persistence.Transient;
 import lombok.experimental.UtilityClass;
 
-import java.beans.Transient;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.List;
@@ -45,7 +46,8 @@ public class EntryUtil {
      * @return
      */
     private static String getColumnName(Field field) {
-        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName());
+        Column annotation = field.getAnnotation(Column.class);
+        return annotation != null ? annotation.name() : CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName());
     }
 
     private static boolean notTransient(Field field) {

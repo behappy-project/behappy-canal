@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class EntryColumnModelFactory extends AbstractModelFactory<List<CanalEntry.Column>> {
     @Override
-    public <R> R newInstance(EntryHandler<?> entryHandler, List<CanalEntry.Column> columns) throws Exception {
+    public <R> R newInstance(EntryHandler entryHandler, List<CanalEntry.Column> columns) throws Exception {
         String canalTableName = HandlerUtil.getCanalTableName(entryHandler);
         if (TableNameEnum.ALL.name().toLowerCase().equals(canalTableName)) {
             Map<String, String> map = columns.stream().collect(Collectors.toMap(CanalEntry.Column::getName, CanalEntry.Column::getValue));
@@ -34,7 +34,7 @@ public class EntryColumnModelFactory extends AbstractModelFactory<List<CanalEntr
     }
 
     @Override
-    public <R> R newInstance(EntryHandler<?> entryHandler, List<CanalEntry.Column> columns, Set<String> updateColumn) throws Exception {
+    public <R> R newInstance(EntryHandler entryHandler, List<CanalEntry.Column> columns, Set<String> updateColumn) throws Exception {
         String canalTableName = HandlerUtil.getCanalTableName(entryHandler);
         if (TableNameEnum.ALL.name().toLowerCase().equals(canalTableName)) {
             Map<String, String> map = columns.stream().filter(column -> updateColumn.contains(column.getName()))

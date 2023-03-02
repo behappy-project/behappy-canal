@@ -18,11 +18,11 @@ import java.util.concurrent.TimeUnit;
 @Data
 @Slf4j
 @EqualsAndHashCode(callSuper = true)
-public class KafkaCanalClient extends AbstractCanalClient<FlatMessage> {
+public class KafkaCanalClient extends AbstractCanalClient {
     @Override
     public void process() {
         KafkaCanalConnector connector = (KafkaCanalConnector) getConnector();
-        MessageHandler<FlatMessage> messageHandler = getMessageHandler();
+        MessageHandler messageHandler = getMessageHandler();
         while (flag) {
             try {
                 connector.connect();
@@ -53,5 +53,4 @@ public class KafkaCanalClient extends AbstractCanalClient<FlatMessage> {
     private Integer batchSize = 1;
     private Long timeout = 1L;
     private TimeUnit unit = TimeUnit.SECONDS;
-    private MessageHandler<FlatMessage> messageHandler;
 }

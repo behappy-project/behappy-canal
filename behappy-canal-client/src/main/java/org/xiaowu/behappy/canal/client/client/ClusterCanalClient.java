@@ -18,12 +18,11 @@ import java.util.stream.Stream;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ClusterCanalClient extends AbstractCanalClient<Message> {
+public class ClusterCanalClient extends AbstractCanalClient {
 
     private String filter = StringUtils.EMPTY;
     private Integer batchSize = 1;
     private Long timeout = 1L;
     private TimeUnit unit = TimeUnit.SECONDS;
-    private MessageHandler<Message> messageHandler;
 
 }

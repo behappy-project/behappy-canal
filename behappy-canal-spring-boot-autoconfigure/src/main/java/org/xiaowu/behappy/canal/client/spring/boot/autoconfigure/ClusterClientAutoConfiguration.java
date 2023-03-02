@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Configuration
+@Configuration(enforceUniqueMethods = false)
 @EnableConfigurationProperties(CanalSimpleProperties.class)
 @ConditionalOnBean(value = {EntryHandler.class})
 @ConditionalOnProperty(value = CanalProperties.CANAL_MODE, havingValue = "cluster")
@@ -51,7 +51,7 @@ public class ClusterClientAutoConfiguration {
 
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "true", matchIfMissing = true)
-    public MessageHandler<Message> messageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler<Message>> entryHandlers,
+    public MessageHandler messageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers,
                                                   ExecutorService executorService) {
         return new AsyncMessageHandlerImpl(entryHandlers, rowDataHandler, executorService);
     }
@@ -59,13 +59,13 @@ public class ClusterClientAutoConfiguration {
 
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "false")
-    public MessageHandler<Message> messageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler<Message>> entryHandlers) {
+    public MessageHandler messageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers) {
         return new SyncMessageHandlerImpl(entryHandlers, rowDataHandler);
     }
 
 
     @Bean(initMethod = "start", destroyMethod = "stop")
-    public ClusterCanalClient clusterCanalClient(MessageHandler<Message> messageHandler) {
+    public ClusterCanalClient clusterCanalClient(MessageHandler messageHandler) {
         String canalServers = canalSimpleProperties.getServer();
         String destination = canalSimpleProperties.getDestination();
         String userName = canalSimpleProperties.getUserName();

@@ -24,15 +24,15 @@ public class FieldUtil {
             field = object.getClass().getSuperclass().getDeclaredField(fieldName);
         }
         field.setAccessible(true);
-        Class<?> type = field.getType();
+        Class type = field.getType();
         Object result = StringConvertUtil.convertType(type, value);
         field.set(object,result);
     }
 
-    public List<Field> getAllFieldsList(Class<?> cls) {
+    public List<Field> getAllFieldsList(Class cls) {
         notNull(cls, "The class must not be null", new Object[0]);
         List<Field> allFields = new ArrayList<>();
-        for(Class<?> currentClass = cls; currentClass != null; currentClass = currentClass.getSuperclass()) {
+        for(Class currentClass = cls; currentClass != null; currentClass = currentClass.getSuperclass()) {
             Field[] declaredFields = currentClass.getDeclaredFields();
             Collections.addAll(allFields, declaredFields);
         }

@@ -21,7 +21,7 @@ public class StringConvertUtil {
             "yyyy/MM/dd HH:mm", "yyyy/MM", "yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss",
             "yyyy.MM.dd HH:mm", "yyyy.MM"};
 
-     Object convertType(Class<?> type, String columnValue) {
+     Object convertType(Class type, String columnValue) {
         if (columnValue == null) {
             return null;
         } else if (type.equals(Integer.class)) {

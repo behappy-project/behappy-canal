@@ -21,11 +21,11 @@ import java.util.stream.Stream;
 @Slf4j
 public abstract class AbstractFlatMessageHandler implements MessageHandler<FlatMessage> {
 
-    private final Map<String, EntryHandler<?>> tableHandlerMap;
+    private final Map<String, EntryHandler> tableHandlerMap;
 
     private final RowDataHandler<List<Map<String, String>>> rowDataHandler;
 
-    public AbstractFlatMessageHandler(List<? extends EntryHandler<?>> entryHandlers, RowDataHandler<List<Map<String, String>>> rowDataHandler) {
+    public AbstractFlatMessageHandler(List<? extends EntryHandler> entryHandlers, RowDataHandler<List<Map<String, String>>> rowDataHandler) {
         this.tableHandlerMap = HandlerUtil.getTableHandlerMap(entryHandlers);
         this.rowDataHandler = rowDataHandler;
     }
@@ -46,7 +46,7 @@ public abstract class AbstractFlatMessageHandler implements MessageHandler<FlatM
                     maps = Stream.of(data.get(i)).collect(Collectors.toList());
                 }
                 try {
-                    EntryHandler<?> entryHandler = HandlerUtil.getEntryHandler(tableHandlerMap, flatMessage.getTable());
+                    EntryHandler entryHandler = HandlerUtil.getEntryHandler(tableHandlerMap, flatMessage.getTable());
                     log.info("消息处理器 {}", entryHandler);
                     if (entryHandler != null) {
                         CanalModel model = CanalModel.builder().id(flatMessage.getId()).table(flatMessage.getTable())

@@ -11,7 +11,7 @@ import org.xiaowu.behappy.canal.client.utils.HandlerUtil;
 public abstract class AbstractModelFactory<T> implements IModelFactory<T> {
 
     @Override
-    public <R> R newInstance(EntryHandler<?> entryHandler, T t) throws Exception {
+    public <R> R newInstance(EntryHandler entryHandler, T t) throws Exception {
         String canalTableName = HandlerUtil.getCanalTableName(entryHandler);
         if (TableNameEnum.ALL.name().toLowerCase().equals(canalTableName)) {
             return (R) t;

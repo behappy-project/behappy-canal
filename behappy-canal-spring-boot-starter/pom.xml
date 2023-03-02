@@ -12,7 +12,7 @@
     <dependencies>
         <dependency>
             <groupId>io.github.wang-xiaowu</groupId>
-            <artifactId>behappy-canal-client</artifactId>
+            <artifactId>behappy-canal-spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 

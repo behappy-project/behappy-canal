@@ -16,7 +16,7 @@ public class AsyncMessageHandlerImpl extends AbstractMessageHandler {
 
     private final ExecutorService executor;
 
-    public AsyncMessageHandlerImpl(List<? extends EntryHandler<Message>> entryHandlers, RowDataHandler<CanalEntry.RowData> rowDataHandler, ExecutorService executor) {
+    public AsyncMessageHandlerImpl(List<? extends EntryHandler> entryHandlers, RowDataHandler<CanalEntry.RowData> rowDataHandler, ExecutorService executor) {
         super(entryHandlers, rowDataHandler);
         this.executor = executor;
     }

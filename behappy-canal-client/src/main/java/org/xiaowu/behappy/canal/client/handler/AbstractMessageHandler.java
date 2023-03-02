@@ -15,11 +15,11 @@ import java.util.Map;
  */
 public abstract class AbstractMessageHandler implements MessageHandler<Message> {
 
-    private final Map<String, EntryHandler<?>> tableHandlerMap;
+    private final Map<String, EntryHandler> tableHandlerMap;
 
     private final RowDataHandler<CanalEntry.RowData> rowDataHandler;
 
-    public AbstractMessageHandler(List<? extends EntryHandler<?>> entryHandlers, RowDataHandler<CanalEntry.RowData> rowDataHandler) {
+    public AbstractMessageHandler(List<? extends EntryHandler> entryHandlers, RowDataHandler<CanalEntry.RowData> rowDataHandler) {
         this.tableHandlerMap = HandlerUtil.getTableHandlerMap(entryHandlers);
         this.rowDataHandler = rowDataHandler;
     }
@@ -30,7 +30,7 @@ public abstract class AbstractMessageHandler implements MessageHandler<Message> 
         for (CanalEntry.Entry entry : entries) {
             if (entry.getEntryType().equals(CanalEntry.EntryType.ROWDATA)) {
                 try {
-                    EntryHandler<?> entryHandler = HandlerUtil.getEntryHandler(tableHandlerMap, entry.getHeader().getTableName());
+                    EntryHandler entryHandler = HandlerUtil.getEntryHandler(tableHandlerMap, entry.getHeader().getTableName());
                     if(entryHandler!=null){
                         CanalModel model = CanalModel.builder().id(message.getId()).table(entry.getHeader().getTableName())
                                 .executeTime(entry.getHeader().getExecuteTime()).database(entry.getHeader().getSchemaName()).build();
