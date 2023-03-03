@@ -1,10 +1,65 @@
 > 本家：https://github.com/NormanGyllenhaal/canal-client
 
 ## 介绍
-项目本家是
+本项目初衷属于学习目的，本家链接地址在上方，关于具体介绍和特性可以进入链接看下
 
-要求
-java17
+主要修改部分：
+1. 修改了一些问题，相关issue可见commit history
+2. 支持jdk17/springboot3.x（不支持jdk8）
+3. 支持mybatis plus注解
+
+## TODO
+- [ ] 批量数据处理，见【https://github.com/NormanGyllenhaal/canal-client/issues/6】
+- [ ] rabbitmq对接支持
+
+## 使用方式
+> 要求
+> 
+> java17/springboot3.x
+
+### 搭建canal server/mysql示例
+git clone https://github.com/behappy-hospital/behappy-docker-application.git \
+&& docker-compose -f mysql/docker-compose.yml up -d \
+&& docker-compose -f canal/docker-compose.yml up -d
+
+### 搭建canal client
+
+spring boot 方式 maven 依赖
+```xml
+<dependency>
+    <groupId>io.github.wang-xiaowu</groupId>
+    <artifactId>behappy-canal-client</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
+
+java 方式
+```xml
+<dependency>
+    <groupId>io.github.wang-xiaowu</groupId>
+    <artifactId>behappy-canal-spring-boot-starter</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
+
+## 配置说明
+
+| 属性              | 描述                                                         | 默认值 |
+| ----------------- | ------------------------------------------------------------ | ------ |
+| canal.mode        | canal 客户端类型 目前支持4种类型 simple,cluster,zk,kafka(kafka 目前支持flatMessage 格式) | simple |
+| canal.filter      | canal过滤的表名称，如配置则只订阅配置的表                    | ""     |
+| canal.batch-size  | 消息的数量，超过该次数将进行一次消费                         | 1(个)  |
+| canal.timeout     | 消费的时间间隔(s)                                            | 1s     |
+| canal.server      | 服务地址,多个地址以,分隔 格式 host:{port}                    | null   |
+| canal.destination | canal 的instance 名称,kafka模式为topic 名称                  | null   |
+| canal.user-name   | canal 的用户名                                               | null   |
+| canal.password    | canal 的密码                                                 | null   |
+| canal.group-id    | kafka groupId 消费者订阅消息时可使用，kafka canal 客户端     | null   |
+| canal.async       | 是否是异步消费，异步消费时，消费时异常将导致消息不会回滚，也不保证顺序性 | true   |
+| canal.partition   | kafka partition                                              | null   |
+
+## 具体使用可以查询项目 demo 示例
+[behappy-canal-example](behappy-canal-example)
 
 ## 参考
 创建canal-server容器报错Exited 139
