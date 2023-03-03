@@ -2,15 +2,19 @@ package org.xiaowu.behappy.canal.example.model;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
+import org.xiaowu.behappy.canal.example.enums.Gender;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * 测试实体类
  */
+@Data
+@Entity
 @Table(name = "t_user")
-@Entity(name = "t_user")
 public class User implements Serializable {
 
     /**
@@ -31,8 +35,8 @@ public class User implements Serializable {
     /**
      * 用户性别
      */
-
-    private Integer gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     /**
      * 国家id
@@ -46,74 +50,11 @@ public class User implements Serializable {
      */
     private Date birthday;
 
+    private Boolean flag;
 
     /**
      * 用户创建时间
      */
     @Column(name = "create_time")
-    private Date createTime;
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public Integer getGender() {
-        return gender;
-    }
-
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
-
-    public Integer getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(Integer countryId) {
-        this.countryId = countryId;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("id=").append(id);
-        sb.append(", userName='").append(userName).append('\'');
-        sb.append(", gender=").append(gender);
-        sb.append(", countryId=").append(countryId);
-        sb.append(", birthday=").append(birthday);
-        sb.append(", createTime=").append(createTime);
-        sb.append('}');
-        return sb.toString();
-    }
+    private LocalDateTime createTime;
 }

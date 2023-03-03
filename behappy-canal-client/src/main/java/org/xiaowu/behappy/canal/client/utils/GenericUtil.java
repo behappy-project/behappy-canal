@@ -1,5 +1,7 @@
 package org.xiaowu.behappy.canal.client.utils;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.google.common.base.CaseFormat;
 import jakarta.persistence.Table;
 import lombok.experimental.UtilityClass;
 import org.xiaowu.behappy.canal.client.handler.EntryHandler;
@@ -20,10 +22,17 @@ public class GenericUtil {
     static String getTableGenericProperties(EntryHandler entryHandler) {
         Class<?> tableClass = getTableClass(entryHandler);
         if (tableClass != null) {
-            Table annotation = tableClass.getAnnotation(Table.class);
-            if (annotation != null) {
-                return annotation.name();
+            // jpa
+            Table table = tableClass.getAnnotation(Table.class);
+            if (table != null) {
+                return table.name();
             }
+            // mp
+            TableName tableName = tableClass.getAnnotation(TableName.class);
+            if (tableName != null) {
+                return tableName.value();
+            }
+            return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, tableClass.getSimpleName());
         }
         return null;
     }

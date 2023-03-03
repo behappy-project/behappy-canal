@@ -16,21 +16,23 @@ import java.util.concurrent.TimeUnit;
  * @author xiaowu
  */
 @Slf4j
+@Setter
+@Getter
 public abstract class AbstractCanalClient implements CanalClient {
     protected volatile boolean flag;
 
     private Thread workThread;
-    protected String filter = StringUtils.EMPTY;
-    protected Integer batchSize = 1;
-    protected Long timeout = 1L;
-    protected TimeUnit unit = TimeUnit.SECONDS;
 
-    @Getter
-    @Setter
+    private String filter = StringUtils.EMPTY;
+
+    private Integer batchSize = 1;
+
+    private Long timeout = 1L;
+
+    private TimeUnit unit = TimeUnit.SECONDS;
+
     private MessageHandler messageHandler;
 
-    @Getter
-    @Setter
     private CanalConnector connector;
 
     @Override
@@ -56,18 +58,26 @@ public abstract class AbstractCanalClient implements CanalClient {
     public void process() {
         while (flag) {
             try {
+                // 打开连接
                 connector.connect();
+                // 订阅数据库表，来覆盖服务端初始化时的设置
                 connector.subscribe(filter);
+                // 回滚到未进行ack的地方，下次fetch的时候，可以从最后一个没有ack的地方开始拿
+                connector.rollback();
                 while (flag) {
+                    // 获取指定数量的数据
                     Message message = connector.getWithoutAck(batchSize, timeout, unit);
-                    if (message.getId() == -1){
+                    if (message.getId() == -1 || message.getEntries().size() == 0) {
                         continue;
                     }
-                    log.info("获取消息 {}", message);
+                    if (log.isDebugEnabled()) {
+                        log.debug("获取消息 {}", message);
+                    }
                     long batchId = message.getId();
                     if (message.getId() != -1 && message.getEntries().size() != 0) {
                         messageHandler.handleMessage(message);
                     }
+                    // 进行 batch id 的确认
                     connector.ack(batchId);
                 }
             } catch (Exception e) {

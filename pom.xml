@@ -27,6 +27,7 @@
         <canal.version>1.1.6</canal.version>
         <behappy.canal.version>3.0.0</behappy.canal.version>
         <jakarta.inject.version>3.1.0</jakarta.inject.version>
+        <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
         <spring.checkstyle.plugin>0.0.28</spring.checkstyle.plugin>
     </properties>
 
@@ -68,6 +69,11 @@
                 <groupId>jakarta.persistence</groupId>
                 <artifactId>jakarta.persistence-api</artifactId>
                 <version>${jakarta.inject.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis.plus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

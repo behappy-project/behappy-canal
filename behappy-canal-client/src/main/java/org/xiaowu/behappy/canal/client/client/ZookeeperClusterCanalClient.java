@@ -14,10 +14,4 @@ import java.util.concurrent.TimeUnit;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ZookeeperClusterCanalClient extends AbstractCanalClient {
-
-    private String filter = StringUtils.EMPTY;
-    private Integer batchSize = 1;
-    private Long timeout = 1L;
-    private TimeUnit unit = TimeUnit.SECONDS;
-
 }

@@ -1,9 +1,11 @@
 package org.xiaowu.behappy.canal.client.utils;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.google.common.base.CaseFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Transient;
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang.StringUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -46,13 +48,27 @@ public class EntryUtil {
      * @return
      */
     private static String getColumnName(Field field) {
-        Column annotation = field.getAnnotation(Column.class);
-        return annotation != null ? annotation.name() : CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName());
+        // jpa
+        Column column = field.getAnnotation(Column.class);
+        if (column != null) {
+            return column.name();
+        }
+        // mp
+        TableField tableField = field.getAnnotation(TableField.class);
+        if (tableField != null) {
+            return tableField.value();
+        }
+        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName());
     }
 
     private static boolean notTransient(Field field) {
-        Transient annotation = field.getAnnotation(Transient.class);
-        return annotation == null;
+        // mp
+        TableField tableField = field.getAnnotation(TableField.class);
+        if (tableField != null) {
+            return tableField.exist();
+        }
+        // jpa
+        return field.getAnnotation(Transient.class) == null;
     }
 
 

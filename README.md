@@ -17,3 +17,9 @@ https://blog.csdn.net/l714417743/article/details/120836263
 
 //监听的表格式为：数据库.表名,数据库.表名
 canalConnector.subscribe(".*\\..*");
+
+canal 详解
+https://blog.csdn.net/ma15732625261/article/details/88368373
+
+canal + kafka 事务一致性问题
+https://www.jianshu.com/p/1ecfafbd6237

@@ -24,7 +24,9 @@ public class MapRowDataHandlerImpl implements RowDataHandler<List<Map<String, St
     @Override
     public <R> void handlerRowData(List<Map<String, String>> list, EntryHandler<R> entryHandler, CanalEntry.EventType eventType) throws Exception {
         if (entryHandler != null) {
-            log.info("处理消息 {}", list);
+            if (log.isDebugEnabled()) {
+                log.debug("处理消息 {}", list);
+            }
             switch (eventType) {
                 case INSERT -> {
                     R entry = modelFactory.newInstance(entryHandler, list.get(0));
@@ -39,7 +41,11 @@ public class MapRowDataHandlerImpl implements RowDataHandler<List<Map<String, St
                     R o = modelFactory.newInstance(entryHandler, list.get(0));
                     entryHandler.delete(o);
                 }
-                default -> log.info("未知消息类型 {} 不处理 {}", eventType, list);
+                default -> {
+                    if (log.isDebugEnabled()) {
+                        log.debug("未知消息类型 {} 不处理 {}", eventType, list);
+                    }
+                }
             }
         }
     }

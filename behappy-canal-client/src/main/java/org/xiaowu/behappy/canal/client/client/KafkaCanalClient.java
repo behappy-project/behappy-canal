@@ -19,18 +19,25 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @EqualsAndHashCode(callSuper = true)
 public class KafkaCanalClient extends AbstractCanalClient {
+
     @Override
     public void process() {
         KafkaCanalConnector connector = (KafkaCanalConnector) getConnector();
         MessageHandler messageHandler = getMessageHandler();
         while (flag) {
             try {
+                // 打开连接
                 connector.connect();
+                // 订阅数据库表，来覆盖服务端初始化时的设置
                 connector.subscribe();
+                // 回滚到未进行ack的地方，下次fetch的时候，可以从最后一个没有ack的地方开始拿
+                connector.rollback();
                 while (flag) {
                     try {
-                        List<FlatMessage> messages = connector.getFlatListWithoutAck(timeout, unit);
-                        log.info("获取消息 {}", messages);
+                        List<FlatMessage> messages = connector.getFlatListWithoutAck(getTimeout(), getUnit());
+                        if (log.isDebugEnabled()) {
+                            log.debug("获取消息 {}", messages);
+                        }
                         if (messages != null) {
                             for (FlatMessage flatMessage : messages) {
                                 messageHandler.handleMessage(flatMessage);
@@ -49,8 +56,4 @@ public class KafkaCanalClient extends AbstractCanalClient {
         connector.disconnect();
     }
 
-    private String filter = StringUtils.EMPTY;
-    private Integer batchSize = 1;
-    private Long timeout = 1L;
-    private TimeUnit unit = TimeUnit.SECONDS;
 }

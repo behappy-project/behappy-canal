@@ -32,7 +32,9 @@ public abstract class AbstractFlatMessageHandler implements MessageHandler<FlatM
 
     @Override
     public void handleMessage(FlatMessage flatMessage) {
-        log.info("解析消息 {}", flatMessage);
+        if (log.isDebugEnabled()) {
+            log.debug("解析消息 {}", flatMessage);
+        }
         List<Map<String, String>> data = flatMessage.getData();
         if (data != null && data.size() > 0) {
             for (int i = 0; i < data.size(); i++) {
@@ -47,12 +49,16 @@ public abstract class AbstractFlatMessageHandler implements MessageHandler<FlatM
                 }
                 try {
                     EntryHandler entryHandler = HandlerUtil.getEntryHandler(tableHandlerMap, flatMessage.getTable());
-                    log.info("消息处理器 {}", entryHandler);
+                    if (log.isDebugEnabled()) {
+                        log.debug("消息处理器 {}", entryHandler);
+                    }
                     if (entryHandler != null) {
                         CanalModel model = CanalModel.builder().id(flatMessage.getId()).table(flatMessage.getTable())
                                 .executeTime(flatMessage.getEs()).database(flatMessage.getDatabase()).createTime(flatMessage.getTs()).build();
                         CanalContext.setModel(model);
-                        log.info("消息发送至行处理 {} {}", maps, eventType);
+                        if (log.isDebugEnabled()) {
+                            log.debug("消息发送至行处理 {} {}", maps, eventType);
+                        }
                         rowDataHandler.handlerRowData(maps, entryHandler, eventType);
                     }
                 } catch (Exception e) {

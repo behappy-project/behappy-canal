@@ -1,58 +1,76 @@
 package org.xiaowu.behappy.canal.client.utils;
 
+import com.alibaba.google.common.base.Enums;
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
- * todo
  * @author xiaowu
  */
 @UtilityClass
 public class StringConvertUtil {
 
-    private  String[] PARSE_PATTERNS = new String[]{"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss",
+    private  String[] PARSE_PATTERNS = new String[]{
+            "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm:ss.SSS",
             "yyyy-MM-dd HH:mm", "yyyy-MM", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss",
             "yyyy/MM/dd HH:mm", "yyyy/MM", "yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss",
-            "yyyy.MM.dd HH:mm", "yyyy.MM"};
+            "yyyy.MM.dd HH:mm", "yyyy.MM", "yyyy-MM-dd"};
 
      Object convertType(Class type, String columnValue) {
-        if (columnValue == null) {
-            return null;
+        if (columnValue == null || type.equals(String.class)) {
+            return columnValue;
         } else if (type.equals(Integer.class)) {
-            return Integer.parseInt(columnValue);
+            return columnValue.length() == 0 ? 0 : Integer.parseInt(columnValue);
         } else if (type.equals(Long.class)) {
-            return Long.parseLong(columnValue);
+            return columnValue.length() == 0 ? 0L : Long.parseLong(columnValue);
         } else if (type.equals(Boolean.class)) {
-            return convertToBoolean(columnValue);
+            return columnValue.length() == 0 ? Boolean.FALSE : convertToBoolean(columnValue);
         } else if (type.equals(BigDecimal.class)) {
-            return new BigDecimal(columnValue);
+            return columnValue.length() == 0 ? new BigDecimal(0) : new BigDecimal(columnValue);
         } else if (type.equals(Double.class)) {
-            return Double.parseDouble(columnValue);
+            return columnValue.length() == 0 ? 0D : Double.parseDouble(columnValue);
         } else if (type.equals(Float.class)) {
-            return Float.parseFloat(columnValue);
+            return columnValue.length() == 0 ? 0F : Float.parseFloat(columnValue);
         } else if (type.equals(Date.class)) {
             return parseDate(columnValue);
         } else if (type.equals(LocalDate.class)) {
             return parseLocalDate(columnValue);
         } else if (type.equals(LocalDateTime.class)) {
             return parseLocalDateTime(columnValue);
+        } else if (type.equals(java.sql.Date.class)) {
+            return parseSqlDate(columnValue);
         } else {
-            return type.equals(java.sql.Date.class) ? parseSqlDate(columnValue) : columnValue;
+            // 枚举类型
+            return Enums.stringConverter(type).convert(columnValue);
         }
     }
 
     private  Object parseLocalDateTime(String str) {
-        return null;
+        if (str == null) {
+            return null;
+        } else {
+            Instant instant = parseDate(str).toInstant();
+            return instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
     }
 
     private  Object parseLocalDate(String str) {
-        return null;
+        if (str == null) {
+            return null;
+        } else {
+            Instant instant = parseDate(str).toInstant();
+            return instant.atZone(ZoneId.systemDefault()).toLocalDate();
+        }
     }
 
     private  Date parseDate(String str) {

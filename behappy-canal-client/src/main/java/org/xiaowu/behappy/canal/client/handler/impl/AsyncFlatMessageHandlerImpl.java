@@ -29,7 +29,9 @@ public class AsyncFlatMessageHandlerImpl extends AbstractFlatMessageHandler {
     @Override
     public void handleMessage(FlatMessage flatMessage) {
         ThreadPoolExecutor poolExecutor = (ThreadPoolExecutor) executor;
-        log.info("当前队列线程数 {} 堆积数量 {}",poolExecutor.getActiveCount(), poolExecutor.getQueue().size());
+        if (log.isDebugEnabled()) {
+            log.debug("当前队列线程数 {} 堆积数量 {}",poolExecutor.getActiveCount(), poolExecutor.getQueue().size());
+        }
         executor.execute(() -> super.handleMessage(flatMessage));
     }
 }
