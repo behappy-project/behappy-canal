@@ -120,6 +120,9 @@ CanalModel canal = CanalContext.getModel();
 创建canal-server容器报错Exited 139
 https://github.com/alibaba/canal/issues/4026
 
+canal1.1.6版本，启动后，提示'Base Table' doesn't exist
+https://github.com/alibaba/canal/issues/4026
+
 canal HA
 https://github.com/alibaba/canal/wiki/AdminGuide#ha%E6%A8%A1%E5%BC%8F%E9%85%8D%E7%BD%AE
 
