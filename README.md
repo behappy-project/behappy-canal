@@ -1,7 +1,7 @@
 > 本家：https://github.com/NormanGyllenhaal/canal-client
 
 ## 介绍
-本项目初衷属于学习目的，本家链接地址在上方，关于具体介绍和特性可以进入链接看下
+本项目以学习为初衷，本家链接地址在上方，关于具体介绍和特性可以进入链接看下
 
 主要修改部分：
 1. 修改了一些问题，相关issue可见commit history
@@ -57,6 +57,61 @@ java 方式
 | canal.group-id    | kafka groupId 消费者订阅消息时可使用，kafka canal 客户端     | null   |
 | canal.async       | 是否是异步消费，异步消费时，消费时异常将导致消息不会回滚，也不保证顺序性 | true   |
 | canal.partition   | kafka partition                                              | null   |
+
+## 订阅数据库的增删改操作
+实现EntryHandler<T> 接口，泛型为想要订阅的数据库表的实体对象，
+该接口的方法为 java 8 的 default 方法，方法可以不实现，如果只要监听增加操作，只实现增加方法即可  
+下面以一个t_user表的user实体对象为例,
+默认情况下，将使用实体对象的jpa 注解 @Table中的表名来转换为EntryHandler中的泛型对象，
+```java
+public class UserHandler implements EntryHandler<User>{
+}
+```
+如果实体类没有使用jpa @Table的注解，也可以使用@CanalTable 注解在EntryHandler来标记表名，例如
+```java
+@CanalTable(value = "t_user")
+@Component
+public class UserHandler implements EntryHandler<User>{
+   /**
+   *  新增操作
+    */
+    @Override
+    public void insert(User user) {
+    }
+    /**
+    * 对于更新操作来讲，before 中的属性只包含变更的属性，after 包含所有属性，通过对比可发现那些属性更新了
+    */
+    @Override
+    public void update(User before, User after) {
+    }
+    /**
+    *  删除操作
+    */
+    @Override
+    public void delete(User user) {
+   }
+}
+```
+另外也支持统一的处理@CanalTable(value="all"),这样除去存在EntryHandler的表以外，其他所有表的处理将通过该处理器,统一转为Map<String, String>对象
+```java
+@CanalTable(value = "all")
+@Component
+public class DefaultEntryHandler implements EntryHandler<Map<String, String>> {
+        @Override
+        public void insert(Map<String, String> map) {
+        }
+        @Override
+        public void update(Map<String, String> before, Map<String, String> after) {
+        }
+        @Override
+        public void delete(Map<String, String> map) {
+        }
+}
+```
+如果你想获取除实体类信息外的其他信息，可以使用
+```java
+CanalModel canal = CanalContext.getModel();
+```
 
 ## 具体使用可以查询项目 demo 示例
 [behappy-canal-example](behappy-canal-example)
