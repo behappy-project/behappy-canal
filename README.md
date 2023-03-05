@@ -7,6 +7,7 @@
 1. 修改了一些问题，相关issue可见commit history
 2. 支持jdk17/springboot3.x（不支持jdk8）
 3. 支持mybatis plus注解
+4. 升级canal-client版本
 
 ## TODO
 - [ ] 批量数据处理，见【https://github.com/NormanGyllenhaal/canal-client/issues/6】
