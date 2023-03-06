@@ -28,8 +28,6 @@ jobs:
       # Maven 打包
       - name: Build with Maven
         run: mvn clean package -DskipTests -Prelease -fpom.xml
-      # 将打包好的 Jar 包 放到 staging 文件夹
-      - run: mkdir staging && cp target/*.jar staging
       # 设置 jobs Maven pom 版本环境变量
       - name: Set Release version env variable
         run: |
@@ -44,5 +42,4 @@ jobs:
           automatic_release_tag: "${{ env.RELEASE_VERSION }}"
           prerelease: false
           title: "Release ${{ env.RELEASE_VERSION }}"
-          files: |
-            staging/*.jar
+
