@@ -26,7 +26,7 @@ git clone https://github.com/behappy-hospital/behappy-docker-application.git \
 
 ### 搭建canal client
 
-spring boot 方式 maven 依赖
+java 方式
 ```xml
 <dependency>
     <groupId>io.github.behappy-project</groupId>
@@ -35,7 +35,7 @@ spring boot 方式 maven 依赖
 </dependency>
 ```
 
-java 方式
+spring boot 方式 maven 依赖
 ```xml
 <dependency>
     <groupId>io.github.behappy-project</groupId>
