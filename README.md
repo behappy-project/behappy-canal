@@ -29,7 +29,7 @@ git clone https://github.com/behappy-hospital/behappy-docker-application.git \
 spring boot 方式 maven 依赖
 ```xml
 <dependency>
-    <groupId>io.github.wang-xiaowu</groupId>
+    <groupId>io.github.behappy-project</groupId>
     <artifactId>behappy-canal-client</artifactId>
     <version>3.0.0</version>
 </dependency>
@@ -38,7 +38,7 @@ spring boot 方式 maven 依赖
 java 方式
 ```xml
 <dependency>
-    <groupId>io.github.wang-xiaowu</groupId>
+    <groupId>io.github.behappy-project</groupId>
     <artifactId>behappy-canal-spring-boot-starter</artifactId>
     <version>3.0.0</version>
 </dependency>

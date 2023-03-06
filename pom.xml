@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.github.wang-xiaowu</groupId>
+    <groupId>io.github.behappy-project</groupId>
     <artifactId>behappy-canal</artifactId>
     <version>3.0.0</version>
     <name>behappy-canal</name>
@@ -53,17 +53,17 @@
                 <version>${canal.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.github.wang-xiaowu</groupId>
+                <groupId>io.github.behappy-project</groupId>
                 <artifactId>behappy-canal-client</artifactId>
                 <version>${behappy.canal.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.github.wang-xiaowu</groupId>
+                <groupId>io.github.behappy-project</groupId>
                 <artifactId>behappy-canal-spring-boot-autoconfigure</artifactId>
                 <version>${behappy.canal.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.github.wang-xiaowu</groupId>
+                <groupId>io.github.behappy-project</groupId>
                 <artifactId>behappy-canal-spring-boot-starter</artifactId>
                 <version>${behappy.canal.version}</version>
             </dependency>
