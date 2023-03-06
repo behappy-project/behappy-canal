@@ -25,5 +25,6 @@ public class UserHandler implements EntryHandler<User> {
     @Override
     public void delete(User user) {
         log.info("delete  {}", user);
+        throw new RuntimeException("模拟错误");
     }
 }

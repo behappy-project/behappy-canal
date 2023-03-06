@@ -1,16 +1,14 @@
 package org.xiaowu.behappy.canal.client.client;
 
 import com.alibaba.otter.canal.client.kafka.KafkaCanalConnector;
+import com.alibaba.otter.canal.client.rabbitmq.RabbitMQCanalConnector;
 import com.alibaba.otter.canal.protocol.FlatMessage;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xiaowu.behappy.canal.client.handler.MessageHandler;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author xiaowu
@@ -18,18 +16,18 @@ import java.util.concurrent.TimeUnit;
 @Data
 @Slf4j
 @EqualsAndHashCode(callSuper = true)
-public class KafkaCanalClient extends AbstractCanalClient {
+public class RabbitMqCanalClient extends AbstractCanalClient {
 
     @Override
     public void process() {
-        KafkaCanalConnector connector = (KafkaCanalConnector) getConnector();
+        RabbitMQCanalConnector connector = (RabbitMQCanalConnector) getConnector();
         MessageHandler messageHandler = getMessageHandler();
         while (flag) {
             try {
                 // 打开连接
                 connector.connect();
                 // 订阅数据库表，来覆盖服务端初始化时的设置
-                connector.subscribe();
+                connector.subscribe(getFilter());
                 // 回滚到未进行ack的地方，下次fetch的时候，可以从最后一个没有ack的地方开始拿
                 connector.rollback();
                 while (flag) {

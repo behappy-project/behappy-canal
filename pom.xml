@@ -28,6 +28,8 @@
         <behappy.canal.version>3.0.0</behappy.canal.version>
         <jakarta.inject.version>3.1.0</jakarta.inject.version>
         <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
+        <amqp-client.version>5.16.0</amqp-client.version>
+        <mq-amqp-client.version>1.0.5</mq-amqp-client.version>
         <spring.checkstyle.plugin>0.0.28</spring.checkstyle.plugin>
     </properties>
 
@@ -74,6 +76,16 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
                 <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.rabbitmq</groupId>
+                <artifactId>amqp-client</artifactId>
+                <version>${amqp-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.mq-amqp</groupId>
+                <artifactId>mq-amqp-client</artifactId>
+                <version>${mq-amqp-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

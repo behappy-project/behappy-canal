@@ -11,7 +11,7 @@
 
 ## TODO
 - [ ] 批量数据处理，见【https://github.com/NormanGyllenhaal/canal-client/issues/6】
-- [ ] rabbitmq对接支持
+- [x] rabbitmq对接支持
 
 ## 使用方式
 > 要求
@@ -21,6 +21,7 @@
 ### 搭建canal server/mysql示例
 git clone https://github.com/behappy-hospital/behappy-docker-application.git \
 && docker-compose -f mysql/docker-compose.yml up -d \
+&& {执行canal/下的sql文件}
 && docker-compose -f canal/docker-compose.yml up -d
 
 ### 搭建canal client
@@ -141,3 +142,6 @@ https://blog.csdn.net/ma15732625261/article/details/88368373
 
 canal + kafka 事务一致性问题
 https://www.jianshu.com/p/1ecfafbd6237
+
+canal 整合RabbitMQ
+https://www.jianshu.com/p/60a9176a8825

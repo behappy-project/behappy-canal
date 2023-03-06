@@ -67,14 +67,11 @@ public abstract class AbstractCanalClient implements CanalClient {
                 while (flag) {
                     // 获取指定数量的数据
                     Message message = connector.getWithoutAck(batchSize, timeout, unit);
-                    if (message.getId() == -1 || message.getEntries().size() == 0) {
-                        continue;
-                    }
-                    if (log.isDebugEnabled()) {
-                        log.debug("获取消息 {}", message);
-                    }
                     long batchId = message.getId();
                     if (message.getId() != -1 && message.getEntries().size() != 0) {
+                        if (log.isDebugEnabled()) {
+                            log.debug("获取消息 {}", message);
+                        }
                         messageHandler.handleMessage(message);
                     }
                     // 进行 batch id 的确认

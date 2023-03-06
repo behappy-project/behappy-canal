@@ -1,6 +1,10 @@
 canal:
-  server: 192.168.56.100:11111
+  server: 192.168.56.100
   destination: instance
+  mode: rabbitMQ
+  vhost: canal
+  user-name: root
+  password: root
 spring:
   application:
     name: canal-example

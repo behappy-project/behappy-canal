@@ -20,7 +20,7 @@ public class CanalProperties {
     public static final String CANAL_MODE = CANAL_PREFIX + "." + "mode";
 
     /**
-     * simple,cluster,zookeeper,kafka,rocketMQ
+     * simple,cluster,zookeeper,kafka,rocketMQ,rabbitMQ
      */
     private String mode;
 
