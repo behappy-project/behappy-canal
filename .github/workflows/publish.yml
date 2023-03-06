@@ -17,9 +17,9 @@ jobs:
 # 2. 安装Java 环境 这里会用到的参数就是 Git Action secrets中配置的，
 #    取值要在key前面加  secrets.
       - name: Set up Maven Central Repo
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
-          java-version: 1.8
+          java-version: 17
           server-id: sonatype-nexus-staging
           server-username: ${{ secrets.OSSRH_USER }}
           server-password: ${{ secrets.OSSRH_PASSWORD }}

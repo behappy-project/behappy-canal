@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.wang-xiaowu</groupId>
     <artifactId>behappy-canal</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.0.RELEASE</version>
     <name>behappy-canal</name>
     <description>canal-数据同步</description>
     <packaging>pom</packaging>
