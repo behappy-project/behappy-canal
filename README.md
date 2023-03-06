@@ -4,7 +4,7 @@
 本项目以学习为初衷，本家链接地址在上方，关于具体介绍和特性可以进入链接看下
 
 主要修改部分：
-1. 修改了一些问题，相关issue可见commit history
+1. 修改了一些问题，相关issue可见release history
 2. 支持jdk17/springboot3.x（不支持jdk8）
 3. 支持mybatis plus注解
 4. 升级canal-client版本
