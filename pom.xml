@@ -26,7 +26,7 @@
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <spring-boot.version>3.0.3</spring-boot.version>
         <canal.version>1.1.6</canal.version>
-        <behappy.canal.version>3.0.0</behappy.canal.version>
+        <behappy.canal.version>3.0.1</behappy.canal.version>
         <jakarta.inject.version>3.1.0</jakarta.inject.version>
         <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
         <amqp-client.version>5.16.0</amqp-client.version>
@@ -200,13 +200,13 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
-                                <configuration>
-                                    <!-- Prevent `gpg` from using pinentry programs -->
-                                    <gpgArguments>
-                                        <arg>--pinentry-mode</arg>
-                                        <arg>loopback</arg>
-                                    </gpgArguments>
-                                </configuration>
+<!--                                <configuration>-->
+<!--                                    &lt;!&ndash; Prevent `gpg` from using pinentry programs &ndash;&gt;-->
+<!--                                    <gpgArguments>-->
+<!--                                        <arg>&#45;&#45;pinentry-mode</arg>-->
+<!--                                        <arg>loopback</arg>-->
+<!--                                    </gpgArguments>-->
+<!--                                </configuration>-->
                             </execution>
                         </executions>
                     </plugin>
