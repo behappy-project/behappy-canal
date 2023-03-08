@@ -2,7 +2,6 @@ package org.xiaowu.behappy.canal.client.utils;
 
 import com.alibaba.google.common.base.Enums;
 import lombok.experimental.UtilityClass;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.math.BigDecimal;
@@ -11,7 +10,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -27,20 +25,22 @@ public class StringConvertUtil {
             "yyyy.MM.dd HH:mm", "yyyy.MM", "yyyy-MM-dd"};
 
      Object convertType(Class type, String columnValue) {
-        if (columnValue == null || type.equals(String.class)) {
+        if (columnValue == null || columnValue.length() == 0) {
+            return null;
+        } else if (type.equals(String.class)) {
             return columnValue;
         } else if (type.equals(Integer.class)) {
-            return columnValue.length() == 0 ? 0 : Integer.parseInt(columnValue);
+            return Integer.parseInt(columnValue);
         } else if (type.equals(Long.class)) {
-            return columnValue.length() == 0 ? 0L : Long.parseLong(columnValue);
+            return Long.parseLong(columnValue);
         } else if (type.equals(Boolean.class)) {
-            return columnValue.length() == 0 ? Boolean.FALSE : convertToBoolean(columnValue);
+            return convertToBoolean(columnValue);
         } else if (type.equals(BigDecimal.class)) {
-            return columnValue.length() == 0 ? new BigDecimal(0) : new BigDecimal(columnValue);
+            return new BigDecimal(columnValue);
         } else if (type.equals(Double.class)) {
-            return columnValue.length() == 0 ? 0D : Double.parseDouble(columnValue);
+            return Double.parseDouble(columnValue);
         } else if (type.equals(Float.class)) {
-            return columnValue.length() == 0 ? 0F : Float.parseFloat(columnValue);
+            return Float.parseFloat(columnValue);
         } else if (type.equals(Date.class)) {
             return parseDate(columnValue);
         } else if (type.equals(LocalDate.class)) {

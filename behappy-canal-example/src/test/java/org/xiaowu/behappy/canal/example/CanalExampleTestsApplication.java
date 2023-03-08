@@ -1,9 +1,6 @@
 package org.xiaowu.behappy.canal.example;
 
-import com.google.common.base.CaseFormat;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 //@SpringBootTest
 public class CanalExampleTestsApplication {

@@ -3,8 +3,6 @@ package org.xiaowu.behappy.canal.client.handler;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.FlatMessage;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xiaowu.behappy.canal.client.context.CanalContext;
 import org.xiaowu.behappy.canal.client.model.CanalModel;
 import org.xiaowu.behappy.canal.client.utils.HandlerUtil;

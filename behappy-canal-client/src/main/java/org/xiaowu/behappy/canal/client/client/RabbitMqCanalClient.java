@@ -1,6 +1,5 @@
 package org.xiaowu.behappy.canal.client.client;
 
-import com.alibaba.otter.canal.client.kafka.KafkaCanalConnector;
 import com.alibaba.otter.canal.client.rabbitmq.RabbitMQCanalConnector;
 import com.alibaba.otter.canal.protocol.FlatMessage;
 import lombok.Data;

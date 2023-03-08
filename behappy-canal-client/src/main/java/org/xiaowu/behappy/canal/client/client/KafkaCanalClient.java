@@ -2,15 +2,12 @@ package org.xiaowu.behappy.canal.client.client;
 
 import com.alibaba.otter.canal.client.kafka.KafkaCanalConnector;
 import com.alibaba.otter.canal.protocol.FlatMessage;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xiaowu.behappy.canal.client.handler.MessageHandler;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author xiaowu
