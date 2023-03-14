@@ -12,6 +12,7 @@
 ## TODO
 - [ ] 批量数据处理，见【https://github.com/NormanGyllenhaal/canal-client/issues/6】
 - [x] rabbitmq对接支持
+- [x] 字段类型全支持
 
 ## 使用方式
 > 要求
