@@ -13,3 +13,8 @@ spring:
     url: jdbc:mysql://192.168.56.100:3306/test
     username: root
     password: root
+  jpa:
+    properties:
+      hibernate:
+        # Method threw 'org.hibernate.LazyInitializationException' exception. Cannot evaluate
+        enable_lazy_load_no_trans: true

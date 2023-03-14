@@ -8,6 +8,7 @@ CREATE TABLE `t_user`  (
   `country_id` int(11) NOT NULL DEFAULT 0 COMMENT '国家id',
   `flag` tinyint NOT NULL DEFAULT 1 COMMENT 'flag',
   `birthday` date  NULL DEFAULT NULL COMMENT '用户出生日期',
+  `logo` longblob NOT NULL COMMENT 'logo',
   `create_time` timestamp NULL  DEFAULT CURRENT_TIMESTAMP COMMENT '用户创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4;
