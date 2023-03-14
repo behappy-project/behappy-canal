@@ -44,6 +44,10 @@ public class User implements Serializable {
     @Column(name = "country_id")
     private Integer countryId;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name="logo", columnDefinition="longblob", nullable=true)
+    private byte[] logo;
 
     /**
      * 用户出生日期

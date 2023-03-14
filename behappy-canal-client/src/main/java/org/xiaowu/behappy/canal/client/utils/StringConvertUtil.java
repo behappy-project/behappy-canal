@@ -5,6 +5,7 @@ import lombok.experimental.UtilityClass;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -49,6 +50,9 @@ public class StringConvertUtil {
             return parseLocalDateTime(columnValue);
         } else if (type.equals(java.sql.Date.class)) {
             return parseSqlDate(columnValue);
+        } else if (type.isArray()) {
+            // blob/binary
+            return columnValue.getBytes(StandardCharsets.ISO_8859_1);
         } else {
             // 枚举类型
             return Enums.stringConverter(type).convert(columnValue);

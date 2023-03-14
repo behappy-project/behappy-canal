@@ -31,7 +31,7 @@ java 方式
 <dependency>
     <groupId>io.github.behappy-project</groupId>
     <artifactId>behappy-canal-client</artifactId>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
 </dependency>
 ```
 
@@ -40,7 +40,7 @@ spring boot 方式 maven 依赖
 <dependency>
     <groupId>io.github.behappy-project</groupId>
     <artifactId>behappy-canal-spring-boot-starter</artifactId>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
 </dependency>
 ```
 
@@ -149,3 +149,6 @@ https://www.jianshu.com/p/1ecfafbd6237
 
 canal 整合RabbitMQ
 https://www.jianshu.com/p/60a9176a8825
+
+Could not find first log file name in binary log index file
+https://github.com/alibaba/canal/issues/156
