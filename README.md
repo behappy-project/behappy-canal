@@ -1,3 +1,6 @@
+## 技术沟通群
+<img src="https://raw.githubusercontent.com/wang-xiaowu/picture_repository/master/behappy_group.jpg" width="300px">
+
 > 本家：https://github.com/NormanGyllenhaal/canal-client
 
 ## 介绍
