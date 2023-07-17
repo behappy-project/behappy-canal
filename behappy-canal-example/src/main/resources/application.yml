@@ -5,6 +5,7 @@ canal:
   vhost: canal
   user-name: root
   password: root
+  async: false
 spring:
   application:
     name: canal-example
