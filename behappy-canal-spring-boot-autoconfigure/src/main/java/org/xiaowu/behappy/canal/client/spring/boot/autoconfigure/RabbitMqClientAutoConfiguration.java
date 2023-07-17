@@ -3,10 +3,12 @@ package org.xiaowu.behappy.canal.client.spring.boot.autoconfigure;
 
 import com.alibaba.otter.canal.client.rabbitmq.RabbitMQCanalConnector;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import org.xiaowu.behappy.canal.client.client.RabbitMqCanalClient;
 import org.xiaowu.behappy.canal.client.factory.MapColumnModelFactory;
@@ -45,20 +47,7 @@ public class RabbitMqClientAutoConfiguration {
         return new MapRowDataHandlerImpl(new MapColumnModelFactory());
     }
 
-    @Bean
-    @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "true", matchIfMissing = true)
-    public MessageHandler messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler,
-                                                      List<EntryHandler> entryHandlers,
-                                                      ExecutorService executorService) {
-        return new AsyncFlatMessageHandlerImpl(entryHandlers, rowDataHandler, executorService);
-    }
-
-    @Bean
-    @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "false")
-    public MessageHandler messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler, List<EntryHandler> entryHandlers) {
-        return new SyncFlatMessageHandlerImpl(entryHandlers, rowDataHandler);
-    }
-
+    @DependsOn("messageHandler")
     @Bean(initMethod = "start", destroyMethod = "stop")
     public RabbitMqCanalClient rabbitMqCanalClient(MessageHandler messageHandler) {
         String nameServer = canalRabbitMqProperties.getServer();
@@ -82,5 +71,30 @@ public class RabbitMqClientAutoConfiguration {
         rabbitMqCanalClient.setTimeout(timeout);
         rabbitMqCanalClient.setUnit(unit);
         return rabbitMqCanalClient;
+    }
+
+
+    @Configuration
+    @ConditionalOnProperty(value = CanalProperties.CANAL_MODE, havingValue = "rabbitMQ")
+    @ConditionalOnExpression(value = "${canal.async:true}")
+    public static class CanalAsyncMessageHandler{
+
+        @Bean
+        public MessageHandler messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler,
+                                             List<EntryHandler> entryHandlers,
+                                             ExecutorService executorService) {
+            return new AsyncFlatMessageHandlerImpl(entryHandlers, rowDataHandler, executorService);
+        }
+    }
+
+    @Configuration
+    @ConditionalOnProperty(value = CanalProperties.CANAL_MODE, havingValue = "rabbitMQ")
+    @ConditionalOnExpression(value = "!${canal.async:true}")
+    public static class CanalSyncMessageHandler{
+
+        @Bean
+        public MessageHandler messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler, List<EntryHandler> entryHandlers) {
+            return new SyncFlatMessageHandlerImpl(entryHandlers, rowDataHandler);
+        }
     }
 }

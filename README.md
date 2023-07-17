@@ -35,7 +35,7 @@ java 方式
 <dependency>
     <groupId>io.github.behappy-project</groupId>
     <artifactId>behappy-canal-client</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.3</version>
 </dependency>
 ```
 
@@ -44,7 +44,7 @@ spring boot 方式 maven 依赖
 <dependency>
     <groupId>io.github.behappy-project</groupId>
     <artifactId>behappy-canal-spring-boot-starter</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.3</version>
 </dependency>
 ```
 
